@@ -81,19 +81,21 @@ git remote -v : 연결확인
 # requirements.txt 파일생성
 pip freeze > requirements.txt
 
-# .gitignore 파일생성
+# .gitignore 파일생성 (.gitignore 의 내용들은 git이 추적하지 않음 )
 New-Item .gitignore -ItemType File
 이후 내용작성
 
 # git 추적내용 추가 
 git add . : 프로젝트폴더의 모든파일을 올리겠다.
 
+git reset : git add 이전상태로 모든 파일을 되돌릴때 
+
 git status : add된 파일들 확인
 
 # 초기설정 완료되면 첫커밋 
 git commit -m "first commit"
 
-# .gitignore 의 내용적용 (.gitignore 의 내용들은 git이 추적하지 않음 )
+
 git add .gitignore
 git commit -m "Add .gitignore file"
 
@@ -102,5 +104,8 @@ git rm -r --cached myenv/
 
 # 로컬의 파일을 github에 전송
 git push -u origin main
+
+git push origin main --force : github의 모든내용을 그냥 덮어 써버릴때
+
 
 
