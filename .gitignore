@@ -1,0 +1,35 @@
+# Python specific
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.pdb
+
+# Virtual environments
+myenv/
+.env
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# VS Code specific
+.vscode/
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+thumbs.db
+desktop.ini
+
+# Ignore SSH keys and PEM files
+*.pem
+*.ppk
+
+# Ignore aws folder
+aws/
+
+

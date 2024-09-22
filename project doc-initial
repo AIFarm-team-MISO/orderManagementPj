@@ -1,0 +1,106 @@
+< 파이썬 설치 및 가상환경 >
+# 파이썬 설치
+현재버전 Python 3.12.6
+
+# 재부팅 후 가상환경 설정
+python -m venv myenv  # 가상환경 생성
+myenv\Scripts\activate  # 가상환경 활성화 (Command Prompt)
+
+- 파이썬 버전이 제대로 안나오는 경우(환경변수에 등록안됨)
+  파이썬 설치후 재부팅 해야 환경변수가 제대로 설정되어 이후 가상환경을 만들수 있다. 
+- 가상환경을 만든후 활성화가 안되는경우 (powershell 에서)
+PS F:\orderManagementPj> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+PS F:\orderManagementPj> .\myenv\Scripts\activate
+
+<< 패키지 설치 >>
+
+# Django 설치: 웹 프레임워크인 Django를 사용하니까 우선 설치
+pip install django
+
+# Requests 설치: API 호출 및 웹 페이지에서 데이터를 가져오기 위해 사용.
+pip install requests
+
+# APScheduler 설치: 30분마다 반복되는 작업을 예약하기 위해 APScheduler 라이브러리를 사용. 
+pip install apscheduler
+
+
+<< 프로그램 실행 환경 선정 >>
+# 가상환경으로 셋팅
+Ctrl + Shift + P를 눌러 Command Palette를 연다
+Python: Select Interpreter 입력 후 프로젝트폴더의 가상환경을 선택 
+
+<< Django 프로젝트생성 >>
+django-admin startproject myproject .
+
+# 프로젝트 파일설명 
+manage.py: Django 프로젝트를 관리하는 명령어를 실행할 수 있는 파일.
+myproject/: Django 프로젝트의 실제 설정 및 애플리케이션 파일이 들어 있는 폴더.
+__init__.py: 이 디렉토리가 Python 패키지임을 알리는 파일.
+settings.py: Django 프로젝트의 설정을 정의하는 파일.
+urls.py: 프로젝트의 URL 경로를 정의하는 파일.
+wsgi.py: 프로젝트의 WSGI 설정 파일 (웹 서버가 사용할 파일).
+asgi.py: ASGI 설정 파일 (비동기 지원을 위한 파일).
+
+# Django 서버실행
+python manage.py runserver
+위 명령어 실행 후 웹에서 http://127.0.0.1:8000/ 로 서버가 실행확인
+
+# Django 데이터베이스와 관련된 마이그레이션이 적용 
+python manage.py migrate
+이후 다시 서버실행 
+
+<< mysql >>
+# mysql 설치 
+
+# MySQL-python 패키지를 설치하여 Django와 연동
+pip install mysqlclient
+
+<< Git >>
+# Git 설치 
+https://git-scm.com/download/win
+
+# Git 초기화 및 github 연동 
+github 에 리포지토리 생성 (orderManagementPj)
+
+echo "# orderManagementPj" >> README.md
+git init
+git add README.md
+
+# git 사용자설정(로컬이라 글로벌로 설정함) 
+git config --global user.name "miso"    
+git config --global user.email "sevenstar15@naver.com" 
+
+
+# 현재 사용중인 브런치의 이름을 main으로 변경 (github의 권고)
+git branch -M main
+
+# github와 연동 
+git remote add origin https://github.com/AIFarm-team-MISO/orderManagementPj.git
+git remote -v : 연결확인
+
+# requirements.txt 파일생성
+pip freeze > requirements.txt
+
+# .gitignore 파일생성
+New-Item .gitignore -ItemType File
+이후 내용작성
+
+# git 추적내용 추가 
+git add . : 프로젝트폴더의 모든파일을 올리겠다.
+
+git status : add된 파일들 확인
+
+# 초기설정 완료되면 첫커밋 
+git commit -m "first commit"
+
+# .gitignore 의 내용적용 (.gitignore 의 내용들은 git이 추적하지 않음 )
+git add .gitignore
+git commit -m "Add .gitignore file"
+
+# 만약 가상환견을 git이 추적하지 않게 하려면
+git rm -r --cached myenv/
+
+# 로컬의 파일을 github에 전송
+git push -u origin main
+
+
