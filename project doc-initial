@@ -30,7 +30,7 @@ Ctrl + Shift + P를 눌러 Command Palette를 연다
 Python: Select Interpreter 입력 후 프로젝트폴더의 가상환경을 선택 
 
 << Django 프로젝트생성 >>
-django-admin startproject myproject .
+django-admin startproject [프로젝트명] .
 
 # 프로젝트 파일설명 
 manage.py: Django 프로젝트를 관리하는 명령어를 실행할 수 있는 파일.

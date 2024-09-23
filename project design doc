@@ -1,0 +1,67 @@
+프로젝트명: 송장 관리 시스템
+
+목표:
+- 주문 송장 입력 자동화
+- 엑셀 파일에서 주문 데이터를 추출하여 송장 입력
+
+1. 주문 데이터 다운로드
+   - 매일 오전 9시에 주문 데이터 엑셀 다운로드
+   - 엑셀에서 주문번호, 수령자 이름, 송장번호 추출
+
+2. 송장 입력 프로세스
+   - 오전 9시부터 오후 6시까지 30분 간격으로 반복
+   - 각 주문에 대해:
+     1. 송장 입력 시도
+     2. 입력 결과 확인
+        - 성공: 다음 주문 처리
+        - 실패: 오류 메시지 확인
+          - 주문 취소 확인
+            - 주문이 취소된 경우: 해당 주문 건너뛰기, 로그에 기록
+            - 다른 이유로 실패한 경우: 오류 로그에 기록하고 재시도
+
+3. 에러 핸들링
+   - 모든 예외 상황에 대한 로그 기록
+   - 주기적으로 실패한 주문 리스트를 확인하고 필요 시 수동으로 처리
+
+4. 사용 도구
+   - VS Code: 코드 작성 및 문서화
+   - Markdown: 설계 문서 작성
+   - Live Share: 실시간 협업
+   - GitHub Projects: 작업 관리
+
+5. 일정 관리
+   - 오전 9시: 주문 데이터 다운로드
+   - 오전 9시~오후 6시: 송장 입력 자동화, 30분 간격으로 반복
+
+# django 프로젝트 폴더 구조 
+orderManagementPj/       # 최상위 프로젝트 디렉토리
+    ├── manage.py        # Django 프로젝트 관리 파일
+    └── order_management/ # Django 앱 디렉토리
+        ├── __init__.py  # 패키지로 인식되도록 하는 파일
+        ├── settings.py   # Django 설정 파일
+        ├── urls.py       # URL 라우팅 설정 파일
+        ├── wsgi.py       # WSGI 애플리케이션 파일
+        └── asgi.py       # ASGI 애플리케이션 파일
+
+
+# 파일구성 
+
+orderManagementPj/
+│
+├── manage.py
+├── order_management/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations/
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── utils.py            # 유틸리티 함수들을 위한 파일
+│   └── templates/
+│       └── order_management/
+│           ├── order_list.html  # 주문 리스트 페이지 템플릿
+│           └── login.html        # 로그인 페이지 템플릿
+└── requirements.txt
