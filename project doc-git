@@ -1,0 +1,16 @@
+# 크롤링 브런치 생성 및 이동 
+git checkout -b feature/crawling
+
+git add .
+git commit -m "Implement crawling feature"
+
+git push origin feature/crawling : 수정이나 추가된 내용이 없으면 바로 푸시 
+
+# 브런치 이동
+git checkout
+
+
+# 브런치를 메인에 병합
+git checkout main
+git merge feature/crawling
+git push origin main

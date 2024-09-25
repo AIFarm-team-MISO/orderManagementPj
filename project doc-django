@@ -1,0 +1,18 @@
+# 프로젝트 구조
+현재 루트디렉토리 orderManagementPj 에서 django 프로젝트를 만들었으므로 아래의 구조가 만들어짐
+orderManagementPj 에는 가상환경등 기타프로젝트에 필요한 내용들이 들어가 있고 실제 프로젝트는 
+order_management 가 루트프로젝트라고 생각해야됨
+
+order_management/       # 루트 프로젝트 디렉토리
+    ├── manage.py       # Django 관리 파일
+    └── order_management/ # Django 프로젝트 설정 파일들
+        ├── __init__.py
+        ├── settings.py   # 프로젝트 설정 파일
+        ├── urls.py       # URL 라우팅 설정 파일
+        ├── wsgi.py       # WSGI 애플리케이션 파일
+        └── asgi.py       # ASGI 애플리케이션 파일
+
+
+# 프로젝트 실행
+settings.py INSTALLED_APPS 에 실행 프로젝트(앱) 을 명시해야됨
+이후 order_management로 들어가서 실행해야됨 

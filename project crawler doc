@@ -1,0 +1,115 @@
+# 크롤링 준비 
+1. pip install selenium
+2. 크롬드라이버 설치 (현재의 크롬버전과 똑같이)
+
+# 환경변수 설정 (.env 파일에 환경 변수를 저장하고 dotenv 라이브러리를 사용하여 해당 변수를 불러와 사용)
+# 설치 pip install python-dotenv
+# 임포트 from dotenv import load_dotenv
+# 사용 naver_id = os.getenv('NAVER_ID')
+
+load_dotenv()  # .env 파일 로드
+환경변수는 민감한 파일이므로 .gitignore 파일에 명시되었는지도 확인 
+
+orderManagementPj/
+├── .env                    # 여기에 .env 파일을 둡니다
+├── order_management/
+│   ├── settings.py
+│   ├── ...
+├── script/
+│   ├── smartstore_crawler.py
+│   └── ...
+└── manage.py
+
+이와같이 모든 앱에서 공통으로 사용된다면 루트디렉토리에 둔다. 
+루트가 아닌 order_management등의 특정앱인경우 디렉토리를 명시해야한다. 
+# order_management 폴더에 있는 .env 파일 로드할경우
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env')) # 사용법예시
+
+# 구성파일 설정 (프로젝트 설정이나 URL, 브라우저 옵션등의 구성파일을 분리하여 관리, .ini, .yaml, .json등이 있음)
+# 설치 
+# 임포트 import configparser
+# 사용 
+# 설정 값 파일로드
+config = configparser.ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), '..', 'config.ini'))
+
+# 설정 값 불러오기
+driver_path = config['selenium']['driver_path']
+base_url = config['selenium']['base_url']
+username_field = config['login']['username_field']
+password_field = config['login']['password_field']
+
+
+# 재사용성을 위한 코드 구조화 및 모듈화, 비지니스 로직과 테스트 코드 분리 
+orderManagementPj/
+├── config.ini
+├── .env
+├── order_management/
+│   ├── __init__.py
+│   ├── login.py                # 로그인 관련 로직 모듈
+│   ├── config_loader.py         # 설정 파일 및 환경 변수 로드 모듈
+│   └── selenium_driver.py       # Selenium 드라이버 설정 모듈
+└── tests/
+    ├── __init__.py
+    └── test_login.py            # 로그인 테스트 코드
+
+
+# __init__.py  의 역활
+init파일은 해당폴더를 앱(패키지)로 인식시켜 주어 모듈로서 동작할 수 있기 때문에 
+다른 앱에서 해당폴더를 불러와서 사용이 가능하므로 이런점을 염두해두고 만들자 
+
+# unittest
+테스트코드를 구조화하고 독립적으로 실행할수 있게 해준다.
+여러테스트를 한번에 실행시킬수도 있으며 실행결과를 명확하게 분석이 가능하다.
+
+unittest 워크플로 (setUp, tearDown는 고정 , test_ 함수들은 순차적으로 실행되지만 함수는 하나만 실행되고 넘어감)
+setUp -> test_ -> tearDown
+
+# 세션을 유지하고 싶을때
+setUpClass와 tearDownClass를 이용해 세션을 유지하며 모든 함수를 통과하게 할수 있다.
+단 알파벳 순서대로 함수가 실행되니 테스트에 01,02 등 순서대로 실행되게 만들어 주어야 한다. 
+
+* 위의 워크플로대로 실행되지만 만약 test_ 함수중 원하는 함수만 따로 실행해볼수도 있다.
+# ex> python -m unittest tests.test_login.TestSmartStoreLogin.test_login
+* unittest.main() 으로 모두 실행시킬수도 있고 각각의 함수로 단일로 실행시킬수 있다.
+# ex> suite.addTest(TestSmartStoreLogin('test_login')) 
+
+* unittest.skip 데코레이터 등으로 조건부로 실행할수도 있다. (이부분은 앞으로 더 알아보자. )
+
+# 메인 실행파일 (main.py)
+테스트에서 각 모듈을 테스트한후 루트에 main.py 가 엔트리포인트 역할을 하게됨 
+일단 배송준비 페이지 넘어가는 과정에서 만들어둠 
+
+orderManagementPj/
+├── config.ini
+├── .env
+├── main.py                  # 메인 엔트리 포인트
+├── order_management/        # 애플리케이션 모듈들
+│   ├── __init__.py
+│   ├── config_loader.py     
+│   ├── selenium_driver.py   
+│   ├── login.py             
+│   ├── popup_handler.py     
+│   └── page_navigation.py   
+├── script/                  # 테스트 스크립트, 유틸리티 등
+│   └── smartstore_crawler.py
+└── tests/                   # 테스트 코드
+    ├── __init__.py
+    └── test_login.py
+
+
+# EC.element_to_be_clickable 이 작동하지 않는 경우
+제대로된 엘리먼트의내용으로 작성했음에도 클릭되지 않는경우
+iframe로 씌워져 있는 경우가 있다. 
+이경우에는 JavaScript 직접 클릭등도 통하지 않는다.
+이경우에는 iframe로 이동한 후 클릭을 시도해야한다.
+그러니 클릭이 작동되지 않는경우 iframe이 있지 않은지 확인할 필요가 있다. 
+네이버의 배송관리 페이지는 모두 iframe이 씌워져 있는듯하여 최소 iframe로 진입후 
+페이지에서 할일이 끝난후 벗어나도록 하였음
+
+# 엑셀 암호제거 패키지
+pip install msoffcrypto-tool
+
+pip install pandas
+
+
