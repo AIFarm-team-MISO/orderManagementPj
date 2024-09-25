@@ -2,6 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
+'''
+크롬 드라이버 초기화 및 셋팅
+
+'''
 def create_driver(driver_path, download_dir=None, headless=False):
     chrome_options = Options()
     
@@ -15,9 +19,9 @@ def create_driver(driver_path, download_dir=None, headless=False):
         }
         chrome_options.add_experimental_option("prefs", prefs)
 
-    # 헤드리스 모드 설정 (필요한 경우)
+    # 헤드리스 모드(브라우저 창을 열지 않고 실행) 설정 (필요한 경우)
     if headless:
-        chrome_options.add_argument("--headless")  # 브라우저 창을 열지 않고 실행
+        chrome_options.add_argument("--headless") 
     
     # WebDriver 서비스 생성
     service = Service(executable_path=driver_path)

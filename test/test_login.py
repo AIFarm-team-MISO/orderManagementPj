@@ -1,5 +1,5 @@
 '''
-스마트스토어에 로그인을 테스트하기 위한 
+    프로젝트의 각모듈을 실행하며 테스트 하기 위한 유닛테스트 코드
 
 '''
 import sys
@@ -21,7 +21,7 @@ from order_management.shipmentpage_handle import download_excel_with_password
 class TestSmartStoreLogin(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        print('#환경설정#')
+        print('--------크롤링 환경설정--------')
         # 설정과 환경 변수 로드
         cls.config = load_config()
         cls.naver_id, cls.naver_pw , cls.excel_pw, cls.excel_download_url = load_env()
@@ -38,37 +38,36 @@ class TestSmartStoreLogin(unittest.TestCase):
         
         # 로그인 테스트 실행
         login_to_smartstore(self.driver, self.base_url, self.naver_id, self.naver_pw)
+
         # 로그인 후 페이지 타이틀이나 URL 등을 확인
         self.assertIn("네이버 스마트스토어센터", self.driver.title)
 
     # 스마트스토어센터 공지팝업 닫기
     def test_02_popup_handle(self):
-        print('메인페이지 타이틀 : ', self.driver.title)
-        print('-------- 팝업처리 시작-------- ')
-        # 로긴후 메인화면에서의 팝업처리
+        print('-------- 메인페이지 팝업처리 시작-------- ')
+
         close_popup_if_exists(self.driver, "button.close")
          
-    # 배송준비 순자를 클릭해서 배송준비페이지로 이동
+    # 배송준비 숫자를 클릭해서 배송준비페이지로 이동
     def test_03_page_navi(self):
         print('-------- 배송관리 페이지이동 시작-------- ')
-        # 로긴후 메인화면에서의 팝업처리
+
         go_to_shipping_management(self.driver)
          
-    # 배송준비페이지의 팝업 닫기
+    # 배송준비페이지의 팝업 닫기 및 배송준비 주문건 다운로드
     def test_04_shipmentlist_handle(self):
         print('-------- 배송관리 페이지 처리시작-------- ')
-        # 다른 CSS 선택자를 사용해 팝업 닫기
+
+        # 배송준비페이지의 팝업 닫기
         close_popup_if_exists(self.driver, "button.close")
 
-
-        # 엑셀다운로드 클릭 및 저장
-        # 설정파일 로드
+        
+        # 설정파일 로드 (엑셀다운로드 저장위치, 엑셀저장 비밀번호)
         download_path = self.config['path']['download_path']     
         excel_pw = self.excel_pw
 
-
+        # 엑셀다운로드 클릭 및 저장
         download_excel_with_password(self.driver, excel_pw, download_path)
-
 
         # 페이지 로딩 대기
         time.sleep(10)     
