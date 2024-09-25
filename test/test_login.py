@@ -29,6 +29,8 @@ class TestSmartStoreLogin(unittest.TestCase):
         # 드라이버 설정
         driver_path = cls.config['selenium']['driver_path']
         cls.base_url = cls.config['selenium']['base_url']
+
+        print('driver_path : ' , driver_path)
         cls.driver = create_driver(driver_path, cls.excel_download_url, headless=False)
         cls.driver.set_window_size(1600, 900)  # 창 크기를 설정
 
@@ -71,7 +73,18 @@ class TestSmartStoreLogin(unittest.TestCase):
 
         # 페이지 로딩 대기
         time.sleep(10)     
+    
+    
+    # 다운로드된 배송준비 엑셀파일 처리 
+    # def test_orderlist_handle(self):
+    #     print('-------- 배송준비 엑셀파일 처리시작-------- ')
 
+    #     print('url : ' , self.excel_download_url)
+    #     print('pw : ' , self.excel_pw)
+
+    #     df = decrypt_excel(self.excel_download_url, self.excel_pw)
+        
+    #     print(df.head())  # 데이터프레임의 첫 몇 줄을 출력하여 제대로 읽혔는지 확인
 
 
 
@@ -92,6 +105,6 @@ if __name__ == "__main__":
 
     # 각각의 함수만 따로 테스트해볼경우 
     # suite = unittest.TestSuite()
-    # suite.addTest(TestSmartStoreLogin('test_login')) 
+    # suite.addTest(TestSmartStoreLogin('test_orderlist_handle')) 
     # runner = unittest.TextTestRunner()
     # runner.run(suite)
