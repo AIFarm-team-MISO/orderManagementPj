@@ -1,8 +1,8 @@
 from order_management.config_loader import load_config, load_env
-from order_management.selenium_driver import create_driver
-from order_management.login import login_to_smartstore
-from order_management.popup_handler import close_popup_if_exists
-from order_management.page_navigation import go_to_shipping_management
+from order_management.crawling.selenium_driver import create_driver
+from order_management.crawling.smartstore.login import login_to_smartstore
+from order_management.crawling.popup_handler import close_popup_if_exists
+from order_management.crawling.smartstore.page_navigation import go_to_shipping_management
 
 '''
     프로젝트의 각모듈의 테스트가 끝난후 배포될 메인 실행 페이지

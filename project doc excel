@@ -1,5 +1,0 @@
-# 엑셀 암호제거 
-pip install msoffcrypto-tool
-pip install pandas
-
-

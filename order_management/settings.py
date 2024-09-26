@@ -73,11 +73,15 @@ WSGI_APPLICATION = 'order_management.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# mysql DB 설정으로 변경하였음 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'your_database_name',
+        'USER': 'your_username',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',   # 또는 다른 MySQL 서버 주소
+        'PORT': '3306',        # MySQL 기본 포트
     }
 }
 

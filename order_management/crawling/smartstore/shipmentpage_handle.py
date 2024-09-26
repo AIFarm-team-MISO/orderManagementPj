@@ -7,7 +7,7 @@ import time
 import os
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from .config_loader import switch_to_iframe, switch_to_default_content
+from ...config_loader import switch_to_iframe, switch_to_default_content
 
 
 

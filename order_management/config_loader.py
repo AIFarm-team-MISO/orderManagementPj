@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import glob
 
 def load_config():
 
@@ -50,3 +51,19 @@ def switch_to_default_content(driver):
         print("기본 프레임으로 돌아옴")
     except Exception as e:
         print(f"기본 프레임으로 돌아오는 중 오류 발생: {e}")
+
+def get_latest_file(directory):
+    """
+    주어진 디렉토리에서 가장 최근에 수정된 파일의 경로를 반환합니다.
+    
+    Args:
+        directory (str): 파일을 검색할 디렉토리 경로.
+        
+    Returns:
+        str: 가장 최근에 수정된 파일의 경로.
+    """
+    list_of_files = glob.glob(os.path.join(directory, '*'))  # 모든 파일 가져오기
+    if not list_of_files:
+        return None  # 디렉토리가 비어있으면 None 반환
+    latest_file = max(list_of_files, key=os.path.getctime)  # 가장 최근 파일 선택
+    return latest_file
