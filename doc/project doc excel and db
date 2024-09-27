@@ -1,0 +1,100 @@
+# 엑셀 암호제거 
+pip install msoffcrypto-tool
+pip install pandas
+
+# Django 로 만들어지는 DB의 기본으로 만들어지는 테이블들
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
+
+auth_group, auth_permission 등: Django의 기본 인증 및 권한 시스템과 관련된 테이블입니다. 사용자의 그룹, 권한 등을 관리합니다.
+django_admin_log: Django의 관리자(admin) 인터페이스에서의 활동 로그를 저장하는 테이블입니다.
+django_content_type: Django의 콘텐츠 타입 시스템과 관련된 테이블로, 모델 간의 관계를 추적합니다.
+django_migrations: Django에서 마이그레이션을 관리하는 테이블입니다. 어떤 마이그레이션이 적용되었는지 추적합니다.
+django_session: Django의 세션 관리와 관련된 테이블로, 사용자의 세션 데이터를 저장합니다.
+
+#### DB 설치 및 설정, 권한부여 ###
+설치후 환경변수를 등록 해주어야 한다.
+이후 DB, 유저를 만들고 유저에게 DB를 제어할수 있는 권한을 부여한다. 
+DB 설치후 환경변수를 설정하고 확인해야하며
+일단 방화벽 인바운드 규칙에도 추가 해주어야 한다. 
+
+# Django 프로젝트의 DB설정 변경 
+Django 설정에서 MySQL 연결: settings.py 파일을 열어 데이터베이스 설정을 MySQL로 변경
+아래의 내용으로 변경하였음
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'your_database_name',
+        'USER': 'your_username',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',   # 또는 다른 MySQL 서버 주소
+        'PORT': '3306',        # MySQL 기본 포트
+    }
+}
+
+
+# DB 관리자로 접속
+mysql -u root -p
+
+# mysql 에서 db생성 (mysql workbench 에서 생성함 )
+CREATE DATABASE orderlist;
+SHOW DATABASES;
+
+# DB의 모델을 정의
+model.py 생성 및 작성 
+
+# DB 사용자에게 DB에 대한 모든 권한을 부여
+GRANT ALL PRIVILEGES ON orderlist.* TO 'miso'@'%';
+FLUSH PRIVILEGES;
+
+# 마이그레이션 준비 
+makemigrations 폴더가 앱안에 있어야 한다. (최초에 만들어지지만 없다면 만들자. 폴더의 위치는 상관없지만 init 파일이 있어야 인식됨)
+그리고 만약 안된다면 makemigrations 폴더의 상위 폴더가 settings파일에 등록 되어 있는지도 확인해봐야됨 
+makemigrations 폴더안에 init 파일이 있다면 
+
+# DB 마이그레이션 및 테이블생성
+python manage.py makemigrations  # migrations 폴더안데 앱안의 모든 models.py 의 내용을 마이그레이션 해서 마이그레이션 파일을 만든다. 
+python manage.py migrate         # 마이그레이션 파일내용대로 db에 테이블을 생성
+
+# 테이블이름의 규칙 
+data_handle_order : app_name_modelname 형식을 따름
+
+# Django DB서버 재실행 (settings.py 이 변경될때는 다시 시작해야 반영이 됨 )
+python manage.py runserver
+
+# DB의 데이터 확인
+mysql -u miso -p orderlist
+
+# 외부에서도 접속이 가능하도록 사용자에게 권한을 주어 생성 (이 밑의 명령어는 워크벤치에서만 실행해 보아 확실치 않음)
+CREATE USER 'miso'@'%' IDENTIFIED BY '3886';      #사용자생성
+GRANT ALL PRIVILEGES ON orderlist.* TO 'a'@'%';   #모든권한(외부접속포함) 지정
+
+grant all privileges on *.* to 'root'@'%' identified by '3886'
+GRANT GRANT OPTION ON *.* TO 'miso'@'%';
+FLUSH PRIVILEGES;
+
+SELECT User, Host FROM mysql.user WHERE User = 'miso'; #사용자의 어떤호스트에 접속가능한지 확인 (Host가 %로 표시되면 ok)
+SHOW GRANTS FOR 'miso'@'%';                            #사용자의 권한 확인 (ON *.* TO 'miso'@'%' 가 표시되면 ok)
+
+
+## DB 명령어 ##
+SHOW TABLES;                   # DB 확인
+
+DESCRIBE table_name;           # 테이블의 구조(컬럼 이름, 데이터 타입 등)를 확인
+DESCRIBE `Order`;              # ex) Order 테이블의 구조를 확인
+
+
+# 데이터 추가 
+models 에 정의된대로 엑셀에서 가져온 df 를 db에 저장
+코드 실행시마다 데이터가 입력될수 있기 때문에 주문번호를 비교하여 저장함 

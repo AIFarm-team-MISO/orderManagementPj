@@ -1,15 +1,3 @@
-'''
-    프로젝트의 각모듈을 실행하며 테스트 하기 위한 유닛테스트 코드
-
-'''
-
-'''
-    -- 할일 --
-    데이터베이스 설계 및 저장
-    웹 페이지에서 데이터 표시
-    스마트폰 접근을 위한 최적화
-    
-'''
 import sys
 import os
 import time
@@ -18,17 +6,17 @@ import time
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import unittest
-from order_management.config_loader import load_config, load_env
+from order_management.config_loader import load_config, load_smartstorelogin_env
 from order_management.crawling.selenium_driver import create_driver
 from order_management.crawling.smartstore.login import login_to_smartstore
 from order_management.crawling.popup_handler import close_popup_if_exists
 from order_management.crawling.smartstore.page_navigation import go_to_shipping_management
 from order_management.crawling.smartstore.shipmentpage_handle import download_excel_with_password 
-from order_management.data_handle.orderlist_handle import decrypt_excel
 
-from order_management.config_loader import get_latest_file
-import pandas as pd
+'''
+    스마트스토어의 로그인 및 배송예정 리스트 엑셀 다운로드
 
+'''
 class TestSmartStoreLogin(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -36,7 +24,7 @@ class TestSmartStoreLogin(unittest.TestCase):
         print('--------크롤링 환경설정--------')
         # 설정과 환경 변수 로드
         cls.config = load_config()
-        cls.naver_id, cls.naver_pw , cls.excel_pw, cls.excel_download_url = load_env()
+        cls.naver_id, cls.naver_pw , cls.excel_pw, cls.excel_download_url = load_smartstorelogin_env()
 
         # 드라이버 설정
         driver_path = cls.config['selenium']['driver_path']
@@ -85,41 +73,7 @@ class TestSmartStoreLogin(unittest.TestCase):
 
         # 페이지 로딩 대기
         time.sleep(10)     
-    
-    
-    # 다운로드된 배송준비 엑셀파일 처리 
-    def test_orderlist_handle(self):
-        print('-------- 배송준비 엑셀파일 처리시작-------- ')
-
-        #다운로드 된 폴더의 가장 최신파일의 경로를 가져온다.        
-        latest_file_path = get_latest_file(self.excel_download_url)
-
-        print('가장 최신의 파일명과 경로 : ' , latest_file_path)
-
-            
-    
-        # 데이터 전처리 : 엑셀 파일에서 필요한 열만 선택
-        columns_to_extract = ["상품주문번호", "판매자 상품코드", "수취인명", "수취인연락처1", "상품명"]
-
-
-        df = decrypt_excel(latest_file_path, self.excel_pw, columns_to_extract)
-
-
-        # 데이터프레임의 첫 몇 줄을 출력하여 제대로 읽혔는지 확인
-        if df is not None:
-            print('가져온 엑셀의 내용----------- : \n', df.head())
-        else:
-            print("데이터프레임을 생성하는 데 실패했습니다.")
-
-
-
-
-
-
-
-
-
-        
+          
 
     @classmethod
     def tearDownClass(cls):

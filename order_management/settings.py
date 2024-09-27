@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'order_management', #추가된 부분
+    'order_management.data_handle',#추가된 부분
 ]
 
 MIDDLEWARE = [
@@ -77,9 +78,9 @@ WSGI_APPLICATION = 'order_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_database_name',
-        'USER': 'your_username',
-        'PASSWORD': 'your_password',
+        'NAME': 'orderlist',
+        'USER': 'miso',
+        'PASSWORD': '3886',
         'HOST': 'localhost',   # 또는 다른 MySQL 서버 주소
         'PORT': '3306',        # MySQL 기본 포트
     }

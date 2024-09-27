@@ -14,7 +14,7 @@ def load_config():
 
     return config
 
-def load_env():
+def load_smartstorelogin_env():
     load_dotenv()
     naver_id = os.getenv('NAVER_ID')
     naver_pw = os.getenv('NAVER_PW')
@@ -22,6 +22,13 @@ def load_env():
     excel_download_url = os.getenv('EXCEL_DOWNLOD_URL')
 
     return naver_id, naver_pw, excel_pw, excel_download_url
+
+def load_excel_env():
+    load_dotenv()
+    excel_pw = os.getenv('EXCEL_PASSWORD')
+    excel_download_url = os.getenv('EXCEL_DOWNLOD_URL')
+
+    return excel_pw, excel_download_url
 
 
 def switch_to_iframe(driver, iframe_selector, timeout=10):

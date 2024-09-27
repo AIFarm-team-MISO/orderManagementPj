@@ -21,6 +21,7 @@ orderManagementPj/
 └── requirements.txt
 
 # 09-26일 파일구조 변경
+# 09-27 업데이트 : test_data_handle 추가
 orderManagementPj/
 │
 ├── manage.py
@@ -35,13 +36,16 @@ orderManagementPj/
 │   │   │   └── shipmentpage_handle.py
 │   │   │   └── page_navigation.py
 │   │   └── popup_handler.py
-│   ├── data_handle/  
-│   │   └── __init__.py
+│   ├── data_handle/          # 엑셀, DB등 데이터 관리를 위한 폴더
+│   │   └── __init__.py 
+│   │   ├── migrations/       # 마이그레이션 폴더(표준이름) 
+│   │   │   └── __init__.py
 │   │   └── orderlist_handle.py # 엑셀파일을 읽고 DB생성 
-│   │   └── models.py
+│   │   └── models.py         # 마이그레이션을 위한 정보파일(표준이름)
 │   ├── test/  
 │   │   └── __init__.py
-│   │   └── test_login.py  # 현재 모든 모듈테스트가 이루어지는곳
+│   │   └── test_login.py        # 스마트스토어에 접속, 주문리스트 다운로드
+│   │   └── test_data_handle.py  # 엑셀 불러오기, 데이터로 전환, 데이터 db저장  
 │   ├── doc/    # 각종문서 
 │── config.ini  # 설정파일 : 크롬드라이버 위치, 사이트접속 url
 │── .env        # 설정파일 : 아이디, 비번, 엑셀저장위치
