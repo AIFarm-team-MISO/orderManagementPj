@@ -1,0 +1,53 @@
+< 웹어프리케이션 구성 >
+# Django의 어드민 패널
+개발 혹은 일반유저가 웹에 접속해 데이터베이스의 내용을 수정하고자 하기위한 툴
+
+# Django의 어드민 패널 사용자등록
+python manage.py createsuperuser    #이름에 따른 권한은 같으며 비밀번호도 보안약하다고 해도 그냥 만들어도 됨
+
+# 어드민 페이지 확인 
+python manage.py runserver          # 서버실행
+http://localhost:8000/admin/        # 페이지 접속
+
+# 웹관련 폴더생성
+web 폴더를 만들고 셋팅파일에 등록함
+
+# Django 에서 웹처리 관련 폴더의 필수내용 (모두 수동으로 만들어야함, 저장위치는 달라져도 괸찮음)
+order_management/web/__init__.py
+order_management/web/views.py
+order_management/web/urls.py
+order_management/web/templates
+order_management/web/templates/web_handle/base.html
+order_management/web/static
+order_management/web/static/css/style.css
+order_management/web/static/js/script.js
+
+# settings.py 의 TEMPLATES 설정(템플릿 파일(HTML 파일 등)을 어디에서 찾을지를 지정)
+os.path.join(BASE_DIR, 'order_management/web/templates')   # DIRS 에 추가 
+
+# 정적 파일(예: CSS, JavaScript, 이미지 등)을 찾을 디렉토리를 지정 (아래내용 모두 추가)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'order_management/web/static'),
+]
+
+
+# Django 설정 연결 (web 폴더를 Django 프로젝트와 연결)
+order_management/web/urls.py에 URL 패턴을 정의
+프로젝트의 메인 urls.py에서 이 URL 패턴을 포함
+
+# views.py에서 뷰 함수 정의
+views.py 파일에서 사용자가 웹 페이지를 요청했을 때 처리할 로직을 정의
+
+# templates 디렉토리에서 템플릿 작성
+데이터를 보여줄 HTML 템플릿을 작성
+order_list 뷰에서 전달된 orders 데이터를 사용하여 테이블 형태로 주문 목록을 표시
+web/templates/web/order_list.html 내용작성
+
+# URL 패턴 설정
+urls.py 파일에서 해당 뷰에 대한 URL 패턴을 정의
+web_handle/urls.py에서 URL 패턴을 설정하고, 이를 메인 프로젝트의 urls.py에 포함
+메인 urls.py에서 이 URL 패턴을 포함
+
+# 서버 실행 및 테스트
+python manage.py runserver
+http://localhost:8000/

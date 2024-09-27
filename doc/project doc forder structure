@@ -51,3 +51,27 @@ orderManagementPj/
 │── .env        # 설정파일 : 아이디, 비번, 엑셀저장위치
 │── main.py     # 메인실행파일 : 아직 작동안함, 모듈테스트 이후 배포용
 └── requirements.txt
+
+# 09-27 웹관련 폴더 추가 
+orderManagementPj/
+├── manage.py
+├── order_management/       # Django 앱의 중심
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── admin.py
+│   ├── migrations/
+│   ├── web/
+│       ├── __init__.py
+│       ├── views.py
+│       ├── urls.py
+│       ├── templates/
+│       │   └── web_handle/
+│       │       └── order_list.html
+│       ├── static/
+│           ├── css/
+│               └── style.css
+│           ├── js/
+│               └── script.js
+└── requirements.txt

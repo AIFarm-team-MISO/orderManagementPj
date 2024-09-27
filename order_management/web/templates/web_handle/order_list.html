@@ -1,0 +1,35 @@
+<!-- order_management/web/templates/web/order_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+</head>
+<body>
+    <h1>Order List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Product Code</th>
+                <th>Customer Name</th>
+                <th>Customer Phone</th>
+                <th>Product Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.order_number }}</td>
+                <td>{{ order.Product_code }}</td>
+                <td>{{ order.customer_name }}</td>
+                <td>{{ order.customer_phone }}</td>
+                <td>{{ order.product_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
