@@ -51,3 +51,22 @@ web_handle/urls.py에서 URL 패턴을 설정하고, 이를 메인 프로젝트�
 # 서버 실행 및 테스트
 python manage.py runserver
 http://localhost:8000/
+
+# 서버 외부접속 (외부에서 모든 아이피에서 접근할수 있도록 바인딩)
+python manage.py runserver 0.0.0.0:8000
+방화벽의 포트(8000) 허용 : 고급-> 새규칙 -> 포트허용
+Django의 ALLOWED_HOSTS 설정을 업데이트 (settings.py 파일에서 ALLOWED_HOSTS = ['*'] 로 변경)
+
+# 서버 외부접속 테스트
+터미널에서 ip주소 확인 
+http://192.168.45.242:8000/
+
+# 로컬이 아닌 외부 인터넷에서 접속시 포트 포워딩 설정필요
+집에서는 공유기관리 페이지에서 설정함 
+
+### 포트포워딩 등등 해보았으나 되지 않고 이후 aws서버에 올려서 그후 외부에서 그쪽서버에 접속이 되야하는 부분이므로 일단 이부분 패스 ###
+
+
+# CSS 스타일링을 추가하여 테이블을 반응형(responsive)으로 만들고, 글꼴 크기, 여백 등을 조정
+static/css/style.css 파일에 CSS 스타일을 추가
+Django 템플릿 파일 order_list.html을 반응형 테이블에 적합한 HTML 구조로 수정

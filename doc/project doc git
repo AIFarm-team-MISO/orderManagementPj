@@ -19,3 +19,5 @@ git checkout main
 git pull origin main  # main 브랜치에 변경사항이 있다면 최신 상태로 업데이트 후 머지
 git merge feature/crawling
 git push origin main
+
+git checkout feature/crawling   # 브런치로 다시 이동하여 둠
