@@ -75,3 +75,47 @@ orderManagementPj/
 │           ├── js/
 │               └── script.js
 └── requirements.txt
+
+# 09-27 최종 업데이트
+
+orderManagementPj/
+│
+├── manage.py
+├── order_management/
+│   ├── __init__.py
+│   ├── crawling/  
+│   │   └── __init__.py
+│   │   └── selenium_driver.py #크롬드라이버 설정
+│   │   ├── smartstore/  
+│   │   │   └── __init__.py
+│   │   │   └── login.py 
+│   │   │   └── shipmentpage_handle.py
+│   │   │   └── page_navigation.py
+│   │   └── popup_handler.py
+│   ├── data_handle/          # 엑셀, DB등 데이터 관리를 위한 폴더
+│   │   └── __init__.py 
+│   │   ├── migrations/       # 마이그레이션 폴더(표준이름) 
+│   │   │   └── __init__.py
+│   │   └── orderlist_handle.py # 엑셀파일을 읽고 DB생성 
+│   │   └── models.py         # 마이그레이션을 위한 정보파일(표준이름)
+│   ├── web/
+│   │    ├── __init__.py
+│   │    ├── views.py
+│   │    ├── urls.py
+│   │    ├── templates/
+│   │    │   └── web_handle/
+│   │    │       └── order_list.html
+│   │    ├── static/
+│   │        ├── css/
+│   │        │  └── style.css
+│   │        ├── js/
+│   │           └── script.js
+│   ├── test/  
+│   │   └── __init__.py
+│   │   └── test_login.py        # 스마트스토어에 접속, 주문리스트 다운로드
+│   │   └── test_data_handle.py  # 엑셀 불러오기, 데이터로 전환, 데이터 db저장  
+│   ├── doc/    # 각종문서 
+│── config.ini  # 설정파일 : 크롬드라이버 위치, 사이트접속 url
+│── .env        # 설정파일 : 아이디, 비번, 엑셀저장위치
+│── main.py     # 메인실행파일 : 아직 작동안함, 모듈테스트 이후 배포용
+└── requirements.txt
