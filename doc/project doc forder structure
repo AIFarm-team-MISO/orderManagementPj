@@ -116,6 +116,7 @@ orderManagementPj/
 │   │   └── test_data_handle.py  # 엑셀 불러오기, 데이터로 전환, 데이터 db저장  
 │   ├── doc/    # 각종문서 
 │── config.ini  # 설정파일 : 크롬드라이버 위치, 사이트접속 url
+│── config_server.ini  # 설정파일(서버용) : 크롬드라이버 위치, 사이트접속 url
 │── .env        # 설정파일 : 아이디, 비번, 엑셀저장위치
 │── main.py     # 메인실행파일 : 아직 작동안함, 모듈테스트 이후 배포용
 └── requirements.txt

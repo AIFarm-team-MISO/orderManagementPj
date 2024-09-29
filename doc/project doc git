@@ -21,6 +21,7 @@ git merge feature/crawling
 git push origin main
 
 git checkout feature/crawling   # 브런치로 다시 이동하여 둠
+git pull origin main            # 서버에 동기화 
 
 # main 의 내용을 pull 할때 기존의 나의 변경사항이 있어 pull되지 않는경우
 로컬에서 변경한 내용을 임시로 스태시에 저장한 후 pull을 진행한 다음, 나중에 다시 적용할 수도 있음

@@ -5,32 +5,28 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import glob
+import platform
 
 def load_config():
-
     config = configparser.ConfigParser()
-    config_path = os.path.join(os.path.dirname(__file__), '..', 'config.ini')
+
+    # 운영체제 판별 및 출력
+    system_platform = platform.system()
+    print(f"현재 플랫폼: {system_platform}")
+
+    # 운영체제에 따라 로컬(Windows) 또는 서버(Ubuntu)의 config 파일을 선택
+    if system_platform == 'Windows':
+        config_filename = 'config.ini'  # 로컬 설정 파일
+    else:
+        config_filename = 'config_server.ini'  # 서버 설정 파일
+
+    # 설정 파일의 경로를 설정
+    config_path = os.path.join(os.path.dirname(__file__), '..', config_filename)
+    
+    # 설정 파일을 읽어옴
     config.read(config_path, encoding='utf-8')  # 인코딩을 명시적으로 설정
 
     return config
-
-# def load_smartstorelogin_config():
-#     config = load_config()
-
-#     # 'SMARTSTORE' 섹션에서 값을 가져옴
-#     naver_id = config.get('SMARTSTORE', 'NAVER_ID')
-#     naver_pw = config.get('SMARTSTORE', 'NAVER_PW')
-#     excel_pw = config.get('SMARTSTORE', 'EXCEL_PASSWORD')
-#     excel_download_url = config.get('SMARTSTORE', 'EXCEL_DOWNLOAD_URL')
-
-#     return naver_id, naver_pw, excel_pw, excel_download_url
-
-# def load_excel_env():
-#     load_dotenv()
-#     excel_pw = os.getenv('EXCEL_PASSWORD')
-#     excel_download_url = os.getenv('EXCEL_DOWNLOD_URL')
-
-#     return excel_pw, excel_download_url
 
 
 def switch_to_iframe(driver, iframe_selector, timeout=10):
