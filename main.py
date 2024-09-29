@@ -121,7 +121,7 @@ def main():
         print('cls.naver_pw : ', naver_pw)
 
         # WebDriver 생성
-        driver = create_driver(driver_path, excel_download_url, headless=False)
+        driver = create_driver(driver_path, excel_download_url, headless=True)
 
         # 로그인
         login_to_smartstore(driver, base_url, naver_id, naver_pw)

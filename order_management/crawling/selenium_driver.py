@@ -25,20 +25,17 @@ def create_driver(driver_path, download_dir=None, headless=True):
     os.makedirs(log_dir, exist_ok=True)
     log_path = os.path.join(log_dir, "chromedriver.log")
 
-    # 창 크기 설정 (헤드리스 여부와 상관없이 항상 설정)
-    chrome_options.add_argument('--window-size=1920x1080')
-
     # 헤드리스 모드(브라우저 창을 열지 않고 실행) 설정 (필요한 경우)
     if headless:
         chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--disable-gpu')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument('--window-size=1920x1080')
-        chrome_options.add_argument('--remote-debugging-port=9222')  # 추가: 디버깅 포트 설정
-        chrome_options.add_argument('--incognito')  # 브라우저를 시크릿 모드로 실행
-        chrome_options.add_argument('--disable-cache')  # 캐시를 비활성화
-        chrome_options.add_argument('--log-level=ALL')  # 로그 레벨을 설정하여 모든 로그 기록
+        # chrome_options.add_argument('--disable-gpu')
+        # chrome_options.add_argument('--no-sandbox')
+        # chrome_options.add_argument('--disable-dev-shm-usage')
+        # chrome_options.add_argument('--window-size=1920x1080')
+        # chrome_options.add_argument('--remote-debugging-port=9222')  # 추가: 디버깅 포트 설정
+        # chrome_options.add_argument('--incognito')  # 브라우저를 시크릿 모드로 실행
+        # chrome_options.add_argument('--disable-cache')  # 캐시를 비활성화
+        # chrome_options.add_argument('--log-level=ALL')  # 로그 레벨을 설정하여 모든 로그 기록
     
     
         log_dir = "F:/orderManagementPj/logs"  # 로그 파일을 저장할 디렉터리 설정
@@ -52,6 +49,18 @@ def create_driver(driver_path, download_dir=None, headless=True):
     
     # WebDriver 생성
     driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    if headless:
+            driver.execute_cdp_cmd('Emulation.setDeviceMetricsOverride', {
+                "width": 1600,
+                "height": 900,
+                "deviceScaleFactor": 0,
+                "mobile": False
+            })
+            driver.execute_cdp_cmd('Network.enable', {})
+            driver.execute_cdp_cmd('Page.enable', {})
+            driver.execute_cdp_cmd('Security.enable', {})
+
     driver.set_window_size(1600, 900)
     
     return driver

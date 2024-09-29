@@ -16,6 +16,11 @@ from order_management.crawling.smartstore.shipmentpage_handle import download_ex
 '''
     스마트스토어의 로그인 및 배송예정 리스트 엑셀 다운로드
 
+    현재 헤드리스 모드일때 창이 켜지는 문제가 있지만 테스트모두 통과 되었음.
+    그러면 설정파일을 시스템에 따라 다르게 읽히는 부분만 추가해서 서버에서 테스트 해보자. 
+    
+
+
 '''
 class TestSmartStoreLogin(unittest.TestCase):
     @classmethod
@@ -45,7 +50,7 @@ class TestSmartStoreLogin(unittest.TestCase):
         print('cls.naver_id : ', cls.naver_id)
         print('cls.naver_pw : ', cls.naver_pw)
 
-        cls.driver = create_driver(driver_path, cls.excel_download_url, headless=False)
+        cls.driver = create_driver(driver_path, cls.excel_download_url, headless=True)
 
     # 스마트스토어센터 로그인
     def test_01_login(self):
