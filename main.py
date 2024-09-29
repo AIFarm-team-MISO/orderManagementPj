@@ -122,7 +122,6 @@ def main():
 
         # WebDriver 생성
         driver = create_driver(driver_path, excel_download_url, headless=False)
-        driver.set_window_size(1600, 900)  # 창 크기를 설정
 
         # 로그인
         login_to_smartstore(driver, base_url, naver_id, naver_pw)

@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 
-def close_popup_if_exists(driver, close_button_selector, timeout=5):
+def close_popup_if_exists(driver, close_button_selector, timeout=10):
     try:
         print("스마트스토어센터 공지팝업처리 시작")
 

@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
-def go_to_shipping_management(driver, timeout=5):
+def go_to_shipping_management(driver, timeout=10):
     try:
         # "배송준비" 의 숫자 링크 클릭 (ui-sref를 사용한 요소)
         shipping_management_link = WebDriverWait(driver, timeout).until(

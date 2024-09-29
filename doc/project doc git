@@ -16,8 +16,15 @@ git push origin feature/crawling
 
 # main 으로 이동하여 병합 및 푸시 
 git checkout main
-git pull origin main  # main 브랜치에 변경사항이 있다면 최신 상태로 업데이트 후 머지
+# main 브랜치에 변경사항이 있다면 최신 상태로 업데이트 후 머지 git pull origin main
 git merge feature/crawling
 git push origin main
 
 git checkout feature/crawling   # 브런치로 다시 이동하여 둠
+
+# main 의 내용을 pull 할때 기존의 나의 변경사항이 있어 pull되지 않는경우
+로컬에서 변경한 내용을 임시로 스태시에 저장한 후 pull을 진행한 다음, 나중에 다시 적용할 수도 있음
+
+git stash             # 로컬 변경 사항을 임시로 저장
+git pull origin main  # 원격 저장소에서 pull
+git stash pop         # 임시 저장한 변경 사항을 다시 적용

@@ -46,7 +46,6 @@ class TestSmartStoreLogin(unittest.TestCase):
         print('cls.naver_pw : ', cls.naver_pw)
 
         cls.driver = create_driver(driver_path, cls.excel_download_url, headless=False)
-        cls.driver.set_window_size(1600, 900)  # 창 크기를 설정
 
     # 스마트스토어센터 로그인
     def test_01_login(self):

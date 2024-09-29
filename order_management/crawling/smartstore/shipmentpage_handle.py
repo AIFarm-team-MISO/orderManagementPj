@@ -9,9 +9,21 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from ...config_loader import switch_to_iframe, switch_to_default_content
 
+def wait_for_download_to_complete(download_path, timeout=30):
+    """
+    파일 다운로드 완료 여부를 확인하는 함수
+    """
+    start_time = time.time()
+    while True:
+        # 다운로드 경로에서 .crdownload 확장자가 없는 파일이 나타나면 완료로 간주
+        files = os.listdir(download_path)
+        if any(file.endswith('.xlsx') for file in files) and not any(file.endswith('.crdownload') for file in files):
+            return True
+        elif time.time() - start_time > timeout:
+            return False
+        time.sleep(1)
 
-
-def download_excel_with_password(driver, password, download_path):
+def download_excel_with_password(driver, password, download_path, timeout=30):
     try:
         # iframe 으로의 전환
         # 현재 주문예정 페이지에서는 페이지 및 팝업 모두 하나의 ifram으로 감싸져 있는것 같으므로 
@@ -52,6 +64,11 @@ def download_excel_with_password(driver, password, download_path):
 
         # 기본 프레임으로 전환
         switch_to_default_content(driver)
+
+        # 다운로드 완료 여부 확인
+        if not wait_for_download_to_complete(download_path, timeout):
+            raise Exception("파일 다운로드가 완료되지 않았습니다.")
+        print("엑셀 파일 다운로드 완료")
 
 
     except Exception as e:
