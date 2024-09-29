@@ -6,7 +6,7 @@ import time
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import unittest
-from order_management.config_loader import load_config, load_smartstorelogin_env
+from order_management.config_loader import load_config
 from order_management.crawling.selenium_driver import create_driver
 from order_management.crawling.smartstore.login import login_to_smartstore
 from order_management.crawling.popup_handler import close_popup_if_exists
@@ -24,13 +24,27 @@ class TestSmartStoreLogin(unittest.TestCase):
         print('--------크롤링 환경설정--------')
         # 설정과 환경 변수 로드
         cls.config = load_config()
-        cls.naver_id, cls.naver_pw , cls.excel_pw, cls.excel_download_url = load_smartstorelogin_env()
 
         # 드라이버 설정
         driver_path = cls.config['selenium']['driver_path']
+
+        # 접속 경로설정 
         cls.base_url = cls.config['selenium']['base_url']
 
-        print('driver_path : ' , driver_path)
+        # 스마트스토어 접속 정보
+        cls.naver_id = cls.config['smartstore']['naver_id']
+        cls.naver_pw = cls.config['smartstore']['naver_pw']
+
+        # 엑셀비밀번호 
+        cls.excel_download_url= cls.config['excel']['excel_download_url']
+        cls.excel_pw = cls.config['excel']['excel_password']
+
+        print('driver_path : ', driver_path)
+        print('cls.base_url : ', cls.base_url)
+        print('cls.excel_download_url : ', cls.excel_download_url)
+        print('cls.naver_id : ', cls.naver_id)
+        print('cls.naver_pw : ', cls.naver_pw)
+
         cls.driver = create_driver(driver_path, cls.excel_download_url, headless=False)
         cls.driver.set_window_size(1600, 900)  # 창 크기를 설정
 
@@ -63,13 +77,10 @@ class TestSmartStoreLogin(unittest.TestCase):
         # 배송준비페이지의 팝업 닫기
         close_popup_if_exists(self.driver, "button.close")
 
-        
-        # 설정파일 로드 (엑셀다운로드 저장위치, 엑셀저장 비밀번호)
-        download_path = self.config['path']['download_path']     
-        excel_pw = self.excel_pw
+    
 
         # 엑셀다운로드 클릭 및 저장
-        download_excel_with_password(self.driver, excel_pw, download_path)
+        download_excel_with_password(self.driver, self.excel_pw, self.excel_download_url)
 
         # 페이지 로딩 대기
         time.sleep(10)     

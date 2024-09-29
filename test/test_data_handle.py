@@ -12,7 +12,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'order_management.settings'
 # Django 설정을 로드
 django.setup()
 
-from order_management.config_loader import load_config, load_excel_env
+from order_management.config_loader import load_config
 from order_management.data_handle.orderlist_handle import decrypt_excel
 from order_management.config_loader import get_latest_file
 import pandas as pd
@@ -35,7 +35,10 @@ class TestDataHandle(unittest.TestCase):
         
         # 설정과 환경 변수 로드
         cls.config = load_config()
-        cls.excel_pw, cls.excel_download_url = load_excel_env()
+
+        # 엑셀 설정 정보 
+        cls.excel_download_url = cls.config['excel']['excel_download_url']  
+        cls.excel_password = cls.config['excel']['excel_password']
     
 
     # 다운로드된 배송준비 엑셀파일 처리 
@@ -48,7 +51,7 @@ class TestDataHandle(unittest.TestCase):
         # 데이터 전처리 : 엑셀 파일에서 필요한 열만 선택
         columns_to_extract = ["상품주문번호", "판매자 상품코드", "수취인명", "수취인연락처1", "상품명"]
 
-        df = decrypt_excel(latest_file_path, self.excel_pw, columns_to_extract)
+        df = decrypt_excel(latest_file_path, self.excel_password, columns_to_extract)
 
         # 긴 문자열도 모두 표시하도록 설정 변경
         pd.set_option('display.max_colwidth', None)

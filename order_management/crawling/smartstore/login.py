@@ -23,4 +23,4 @@ def login_to_smartstore(driver, base_url, naver_id, naver_pw):
     login_button.click()
 
     # 로그인 후 페이지 로딩 대기
-    time.sleep(5)
+    time.sleep(10)

@@ -14,21 +14,23 @@ def load_config():
 
     return config
 
-def load_smartstorelogin_env():
-    load_dotenv()
-    naver_id = os.getenv('NAVER_ID')
-    naver_pw = os.getenv('NAVER_PW')
-    excel_pw = os.getenv('EXCEL_PASSWORD')
-    excel_download_url = os.getenv('EXCEL_DOWNLOD_URL')
+# def load_smartstorelogin_config():
+#     config = load_config()
 
-    return naver_id, naver_pw, excel_pw, excel_download_url
+#     # 'SMARTSTORE' 섹션에서 값을 가져옴
+#     naver_id = config.get('SMARTSTORE', 'NAVER_ID')
+#     naver_pw = config.get('SMARTSTORE', 'NAVER_PW')
+#     excel_pw = config.get('SMARTSTORE', 'EXCEL_PASSWORD')
+#     excel_download_url = config.get('SMARTSTORE', 'EXCEL_DOWNLOAD_URL')
 
-def load_excel_env():
-    load_dotenv()
-    excel_pw = os.getenv('EXCEL_PASSWORD')
-    excel_download_url = os.getenv('EXCEL_DOWNLOD_URL')
+#     return naver_id, naver_pw, excel_pw, excel_download_url
 
-    return excel_pw, excel_download_url
+# def load_excel_env():
+#     load_dotenv()
+#     excel_pw = os.getenv('EXCEL_PASSWORD')
+#     excel_download_url = os.getenv('EXCEL_DOWNLOD_URL')
+
+#     return excel_pw, excel_download_url
 
 
 def switch_to_iframe(driver, iframe_selector, timeout=10):
