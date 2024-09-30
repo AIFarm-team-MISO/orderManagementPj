@@ -73,6 +73,15 @@ class TestSmartStoreLogin(unittest.TestCase):
             EC.title_contains("스마트스토어")
         )
         print("페이지 타이틀:", self.driver.title)
+        
+        # 로그인 후 현재 URL 출력
+        current_url = self.driver.current_url
+        print(f"로그인 후 로드된 URL: {current_url}")
+
+        # 페이지 소스 확인
+        page_source = self.driver.page_source
+        print(f"page_source: {page_source}")
+
 
         # 로그인 후 페이지 타이틀이나 URL 등을 확인
         self.assertIn("네이버", self.driver.title)
