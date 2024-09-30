@@ -22,4 +22,5 @@ def close_popup_if_exists(driver, close_button_selector, timeout=10):
         print("팝업이 없습니다.")
     except Exception as e:
         print(f"팝업을 닫는 중 오류 발생: {e}")
+        traceback.print_exc()  # 전체 스택 트레이스 출력
 

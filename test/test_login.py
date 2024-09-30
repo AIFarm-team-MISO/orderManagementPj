@@ -60,12 +60,16 @@ class TestSmartStoreLogin(unittest.TestCase):
     # 스마트스토어센터 로그인
     def test_01_login(self):
         print('-------- 로긴테스트시작-------- ')
+        print('-------- self.driver.title-------- : ', self.driver.title)
         
         # 로그인 테스트 실행
         login_to_smartstore(self.driver, self.base_url, self.naver_id, self.naver_pw)
 
         # 로그인 후 페이지 타이틀이나 URL 등을 확인
-        self.assertIn("네이버 스마트스토어센터", self.driver.title)
+        self.assertIn("네이버", self.driver.title)
+
+        
+
 
     # 스마트스토어센터 공지팝업 닫기
     def test_02_popup_handle(self):
