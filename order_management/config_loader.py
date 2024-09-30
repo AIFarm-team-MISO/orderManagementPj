@@ -26,7 +26,13 @@ def load_config():
     # 설정 파일을 읽어옴
     config.read(config_path, encoding='utf-8')  # 인코딩을 명시적으로 설정
 
-    return config
+    # 시스템에 따라 타임아웃 값을 설정 파일에서 가져옴
+    timeout = int(config['selenium'].get('timeout', 10))  # 설정 파일에서 timeout 값 불러오고, 기본값은 30초
+
+    print(f"현재 타임아웃 값 : {timeout}")
+
+
+    return config, timeout
 
 
 def switch_to_iframe(driver, iframe_selector, timeout=10):
@@ -38,6 +44,10 @@ def switch_to_iframe(driver, iframe_selector, timeout=10):
     :param timeout: iframe을 찾기 위한 최대 대기 시간
     """
     try:
+
+        print('아이프레임변경 timeout : ', timeout)
+
+
         WebDriverWait(driver, timeout).until(
             EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, iframe_selector))
         )

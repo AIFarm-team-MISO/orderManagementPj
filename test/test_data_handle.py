@@ -34,7 +34,7 @@ class TestDataHandle(unittest.TestCase):
         print('-- 테스트 시작 --')
         
         # 설정과 환경 변수 로드
-        cls.config = load_config()
+        cls.config, cls.timeout = load_config()  # config와 timeout을 각각 클래스 변수에 할당
 
         # 엑셀 설정 정보 
         cls.excel_download_url = cls.config['excel']['excel_download_url']  

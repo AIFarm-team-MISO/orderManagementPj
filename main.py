@@ -31,7 +31,7 @@ def data_Handle():
         """
 
         # 설정과 환경 변수 로드
-        config = load_config()
+        config, timeout = load_config()  # config와 timeout을 각각 클래스 변수에 할당
 
         # 엑셀 설정 정보 
         excel_download_url = config['excel']['excel_download_url']  
@@ -98,7 +98,7 @@ def data_Handle():
 def main():
     try:
         # 설정과 환경 변수 로드
-        config = load_config()
+        config, timeout = load_config()  # config와 timeout을 각각 클래스 변수에 할당
 
         # 드라이버 설정
         driver_path = config['selenium']['driver_path']
@@ -114,11 +114,15 @@ def main():
         excel_download_url = config['excel']['excel_download_url']  
         excel_pw = config['excel']['excel_password']
 
+        # timeout
+        timeout = config['selenium']['timeout']
+
         print('driver_path : ', driver_path)
         print('cls.base_url : ', base_url)
         print('cls.excel_download_url : ', excel_download_url)
         print('cls.naver_id : ', naver_id)
         print('cls.naver_pw : ', naver_pw)
+        print('timeout : ', timeout)
 
         # WebDriver 생성
         driver = create_driver(driver_path, excel_download_url, headless=True)
@@ -128,19 +132,19 @@ def main():
         print('--------- 로그인 완료 ------------')
 
         # 팝업 닫기
-        close_popup_if_exists(driver, "button.close")
+        close_popup_if_exists(driver, "button.close", timeout)
         print('--------- 팝업 닫기 완료 ------------')
 
         # 배송준비 페이지로 이동
-        go_to_shipping_management(driver)
+        go_to_shipping_management(driver, timeout)
         print('--------- 배송준비 페이지로 이동 완료 ------------')
 
         # 배송준비 페이지의 팝업 닫기
-        close_popup_if_exists(driver, "button.close")
+        close_popup_if_exists(driver, "button.close", timeout)
         print('--------- 배송준비 페이지의 팝업 닫기 완료 ------------')
 
         # 엑셀 파일 다운로드 및 저장
-        download_excel_with_password(driver, excel_pw, excel_download_url)
+        download_excel_with_password(driver, excel_pw, excel_download_url, timeout)
         print('--------- 엑셀 파일 다운로드 및 저장 완료 ------------')
 
         # 페이지 로딩 대기

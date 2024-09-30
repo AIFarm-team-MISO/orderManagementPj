@@ -28,7 +28,8 @@ class TestSmartStoreLogin(unittest.TestCase):
         print('-- 테스트시작 --')
         print('--------크롤링 환경설정--------')
         # 설정과 환경 변수 로드
-        cls.config = load_config()
+        cls.config, cls.timeout = load_config()  # config와 timeout을 각각 클래스 변수에 할당
+
 
         # 드라이버 설정
         driver_path = cls.config['selenium']['driver_path']
@@ -44,11 +45,15 @@ class TestSmartStoreLogin(unittest.TestCase):
         cls.excel_download_url= cls.config['excel']['excel_download_url']
         cls.excel_pw = cls.config['excel']['excel_password']
 
+        # timeout
+        cls.timeout = cls.config['selenium']['timeout']
+
         print('driver_path : ', driver_path)
         print('cls.base_url : ', cls.base_url)
         print('cls.excel_download_url : ', cls.excel_download_url)
         print('cls.naver_id : ', cls.naver_id)
         print('cls.naver_pw : ', cls.naver_pw)
+        print('timeout : ', cls.timeout)
 
         cls.driver = create_driver(driver_path, cls.excel_download_url, headless=True)
 
@@ -66,25 +71,25 @@ class TestSmartStoreLogin(unittest.TestCase):
     def test_02_popup_handle(self):
         print('-------- 메인페이지 팝업처리 시작-------- ')
 
-        close_popup_if_exists(self.driver, "button.close")
+        close_popup_if_exists(self.driver, "button.close", self.timeout)
          
     # 배송준비 숫자를 클릭해서 배송준비페이지로 이동
     def test_03_page_navi(self):
         print('-------- 배송관리 페이지이동 시작-------- ')
 
-        go_to_shipping_management(self.driver)
+        go_to_shipping_management(self.driver, self.timeout)
          
     # 배송준비페이지의 팝업 닫기 및 배송준비 주문건 다운로드
     def test_04_shipmentlist_handle(self):
         print('-------- 배송관리 페이지 처리시작-------- ')
 
         # 배송준비페이지의 팝업 닫기
-        close_popup_if_exists(self.driver, "button.close")
+        close_popup_if_exists(self.driver, "button.close", self.timeout)
 
     
 
         # 엑셀다운로드 클릭 및 저장
-        download_excel_with_password(self.driver, self.excel_pw, self.excel_download_url)
+        download_excel_with_password(self.driver, self.excel_pw, self.excel_download_url, self.timeout)
 
         # 페이지 로딩 대기
         time.sleep(10)     

@@ -13,6 +13,8 @@ def wait_for_download_to_complete(download_path, timeout=30):
     """
     파일 다운로드 완료 여부를 확인하는 함수
     """
+    print('엑셀다운로드완료 timeout : ', timeout)
+
     start_time = time.time()
     while True:
         # 다운로드 경로에서 .crdownload 확장자가 없는 파일이 나타나면 완료로 간주
@@ -25,10 +27,13 @@ def wait_for_download_to_complete(download_path, timeout=30):
 
 def download_excel_with_password(driver, password, download_path, timeout=30):
     try:
+
+        print('엑셀다운로드 timeout : ', timeout)
+        
         # iframe 으로의 전환
         # 현재 주문예정 페이지에서는 페이지 및 팝업 모두 하나의 ifram으로 감싸져 있는것 같으므로 
         # 모든 작업을 iframe으로 전환후 실행하고 이페이지를 벗어날때 iframe을 해제하자 
-        switch_to_iframe(driver, 'iframe')
+        switch_to_iframe(driver, 'iframe', timeout)
 
 
         # 엑셀다운 버튼 클릭
