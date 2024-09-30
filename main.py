@@ -148,7 +148,7 @@ def main():
         print('--------- 엑셀 파일 다운로드 및 저장 완료 ------------')
 
         # 페이지 로딩 대기
-        time.sleep(10)
+        # time.sleep(10)
 
 
         data_Handle()
