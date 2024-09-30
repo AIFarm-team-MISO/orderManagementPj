@@ -15,6 +15,8 @@ from order_management.crawling.smartstore.login import login_to_smartstore
 from order_management.crawling.popup_handler import close_popup_if_exists
 from order_management.crawling.smartstore.page_navigation import go_to_shipping_management
 from order_management.crawling.smartstore.shipmentpage_handle import download_excel_with_password 
+import selenium
+
 
 '''
     스마트스토어의 로그인 및 배송예정 리스트 엑셀 다운로드
@@ -58,7 +60,7 @@ class TestSmartStoreLogin(unittest.TestCase):
         print('cls.naver_pw : ', cls.naver_pw)
         print('timeout : ', cls.timeout)
 
-        cls.driver = create_driver(driver_path, cls.excel_download_url, headless=True)
+        cls.driver = create_driver(driver_path, cls.excel_download_url, headless=False)
 
     # 스마트스토어센터 로그인
     def test_01_login(self):
