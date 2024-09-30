@@ -63,10 +63,11 @@ class TestSmartStoreLogin(unittest.TestCase):
     # 스마트스토어센터 로그인
     def test_01_login(self):
         print('-------- 로긴테스트시작-------- ')
-        print('-------- self.driver.title-------- : ', self.driver.title)
         
         # 로그인 테스트 실행
-        login_to_smartstore(self.driver, self.base_url, self.naver_id, self.naver_pw)
+        login_to_smartstore(self.driver, self.base_url, self.naver_id, self.naver_pw, self.timeout)
+
+        print('-------- self.driver.title-------- : ', self.driver.title)
 
         # 페이지 타이틀이 "스마트스토어"를 포함할 때까지 기다림
         WebDriverWait(self.driver, 30).until(

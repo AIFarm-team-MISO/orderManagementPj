@@ -128,7 +128,7 @@ def main():
         driver = create_driver(driver_path, excel_download_url, headless=True)
 
         # 로그인
-        login_to_smartstore(driver, base_url, naver_id, naver_pw)
+        login_to_smartstore(driver, base_url, naver_id, naver_pw, timeout)
         print('--------- 로그인 완료 ------------')
 
         # 팝업 닫기
