@@ -15,6 +15,8 @@ def wait_for_download_to_complete(download_path, timeout=30):
     """
     print('엑셀다운로드완료 timeout : ', timeout)
 
+    timeout = int(timeout)
+
     start_time = time.time()
     while True:
         # 다운로드 경로에서 .crdownload 확장자가 없는 파일이 나타나면 완료로 간주

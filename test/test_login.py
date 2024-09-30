@@ -81,17 +81,10 @@ class TestSmartStoreLogin(unittest.TestCase):
         current_url = self.driver.current_url
         print(f"로그인 후 로드된 URL: {current_url}")
 
-        # 페이지 소스 확인
-        page_source = self.driver.page_source
-        print(f"page_source: {page_source}")
-
-
         # 로그인 후 페이지 타이틀이나 URL 등을 확인
         self.assertIn("네이버", self.driver.title)
 
-        
-
-        
+    
 
 
     # 스마트스토어센터 공지팝업 닫기
