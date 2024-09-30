@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 import os
-import traceback
+
 
 '''
 크롬 드라이버 초기화 및 셋팅

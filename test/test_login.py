@@ -1,6 +1,9 @@
 import sys
 import os
 import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # 모듈 임포트를 위한 경로 추가(order_management의 경로를 명시)
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -65,8 +68,16 @@ class TestSmartStoreLogin(unittest.TestCase):
         # 로그인 테스트 실행
         login_to_smartstore(self.driver, self.base_url, self.naver_id, self.naver_pw)
 
+        # 페이지 타이틀이 "스마트스토어"를 포함할 때까지 기다림
+        WebDriverWait(self.driver, 30).until(
+            EC.title_contains("스마트스토어")
+        )
+        print("페이지 타이틀:", self.driver.title)
+
         # 로그인 후 페이지 타이틀이나 URL 등을 확인
         self.assertIn("네이버", self.driver.title)
+
+        
 
         
 
