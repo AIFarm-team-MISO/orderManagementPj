@@ -37,7 +37,7 @@ def download_excel_with_password(driver, password, download_path, timeout=30):
 
 
         # 엑셀다운 버튼 클릭
-        excel_download_button = WebDriverWait(driver, 20).until(
+        excel_download_button = WebDriverWait(driver, timeout).until(
             EC.element_to_be_clickable((By.XPATH, "//span[text()='엑셀다운']/ancestor::button"))
         )
         excel_download_button.click()
@@ -46,21 +46,21 @@ def download_excel_with_password(driver, password, download_path, timeout=30):
         
         print("첫 번째 비밀번호 입력 필드 대기")
         # 첫 번째 비밀번호 입력 필드 대기 및 입력
-        password_input_1 = WebDriverWait(driver, 20).until(
+        password_input_1 = WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.XPATH, "//span[text()='비밀번호']/following-sibling::input[@type='password']"))
         )
         password_input_1.send_keys(password)
         print("첫 번째 비밀번호 입력 완료")
 
         # 두 번째 비밀번호 입력 필드 대기 및 입력 (비밀번호 재확인)
-        password_input_2 = WebDriverWait(driver, 10).until(
+        password_input_2 = WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.XPATH, "//span[text()='재확인']/following-sibling::input[@type='password']"))
         )
         password_input_2.send_keys(password)
         print("비밀번호 재확인 입력 완료")
 
         # 다운로드 버튼 클릭
-        download_button = WebDriverWait(driver, 10).until(
+        download_button = WebDriverWait(driver, timeout).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "button._rydLWC3ccz._Ue9WKGXozM"))
         )
         download_button.click()

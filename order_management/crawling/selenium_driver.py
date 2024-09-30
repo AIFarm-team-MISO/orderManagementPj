@@ -10,6 +10,8 @@ import os
 def create_driver(driver_path, download_dir=None, headless=True):
     chrome_options = Options()
     
+    print('다운로드 폴더 : ', download_dir)
+
     # 기본 다운로드 경로 설정
     if download_dir:
         prefs = {
