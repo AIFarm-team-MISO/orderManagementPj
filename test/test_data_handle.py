@@ -60,7 +60,7 @@ class TestDataHandle(unittest.TestCase):
 
         # 데이터프레임의 첫 몇 줄을 출력하여 제대로 읽혔는지 확인
         if df is not None and not df.empty:
-            print('가져온 엑셀의 내용----------- : \n', df.head())
+            print('가져온 엑셀의 내용----------- : \n', df.to_string())
             # 데이터를 나중에 DB에 저장하기 위해 클래스 변수에 저장
             self.__class__.df = df
         else:
@@ -74,7 +74,7 @@ class TestDataHandle(unittest.TestCase):
     def test_02_DBSave(self):  
         # 데이터프레임의 첫 몇 줄을 출력하여 제대로 읽혔는지 확인
         if self.__class__.df is not None and not self.__class__.df.empty:
-            print('DB에 저장할 엑셀의 내용----------- : \n', self.__class__.df.head())
+            print('DB에 저장할 엑셀의 내용----------- : \n', self.__class__.df.to_string())
 
             # 데이터베이스에 저장된 항목 수를 추적하기 위한 카운터
             saved_count = 0
@@ -83,7 +83,7 @@ class TestDataHandle(unittest.TestCase):
             # 데이터베이스에 저장
             for idx, (_, row) in enumerate(self.__class__.df.iterrows(), start=1):
                 # 주문번호로 기존 데이터가 있는지 확인 후 저장
-                if not Order.objects.filter(order_number=row["상품주문번호"]).exists():
+                if not Order.objects.filter(order_number=str(row["상품주문번호"]).strip()).exists():
                     order = Order(
                         order_number=row["상품주문번호"],
                         Product_code=row["판매자 상품코드"],

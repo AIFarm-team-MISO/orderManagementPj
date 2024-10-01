@@ -1,0 +1,8 @@
+# 데이터베이스 로그인
+mysql -u miso -p
+
+# 데이터베이스 사용
+use use orderlist
+
+# 테이블 삭제 
+ELETE FROM data_handle_order;

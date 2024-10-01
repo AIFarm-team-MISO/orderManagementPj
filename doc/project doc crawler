@@ -11,7 +11,7 @@ load_dotenv()  # .env 파일 로드
 환경변수는 민감한 파일이므로 .gitignore 파일에 명시되었는지도 확인 
 
 orderManagementPj/
-├── .env                    # 여기에 .env 파일을 둡니다
+├── .env                    # 여기에 .env 파일
 ├── order_management/
 │   ├── settings.py
 │   ├── ...

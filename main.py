@@ -72,7 +72,7 @@ def data_Handle():
             # 데이터베이스에 저장
             for idx, (_, row) in enumerate(df.iterrows(), start=1):
                 # 주문번호로 기존 데이터가 있는지 확인 후 저장
-                if not Order.objects.filter(order_number=row["상품주문번호"]).exists():
+                if not Order.objects.filter(order_number=str(row["상품주문번호"]).strip()).exists():
                     order = Order(
                         order_number=row["상품주문번호"],
                         Product_code=row["판매자 상품코드"],
@@ -148,7 +148,7 @@ def main():
         print('--------- 엑셀 파일 다운로드 및 저장 완료 ------------')
 
         # 페이지 로딩 대기
-        # time.sleep(10)
+        time.sleep(10)
 
 
         data_Handle()

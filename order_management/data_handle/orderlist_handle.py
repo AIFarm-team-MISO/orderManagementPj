@@ -27,7 +27,7 @@ def decrypt_excel(file_path, password, columns_to_extract=None):
         # 열 이름 정리 (필요에 따라 공백 제거 등)
         df.columns = df.columns.str.strip()
         df.columns = df.columns.astype(str)
-        print("정리된 열 이름:", df.columns.tolist())
+        #print("정리된 열 이름:", df.columns.tolist())
 
         # 사용자가 지정한 열만 선택
         if columns_to_extract:
