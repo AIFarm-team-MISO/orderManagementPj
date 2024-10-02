@@ -1,5 +1,3 @@
-# order_management/web/views.py
-
 from django.shortcuts import render
 from order_management.data_handle.models import Order
 

@@ -5,4 +5,4 @@ mysql -u miso -p
 use use orderlist
 
 # 테이블 삭제 
-ELETE FROM data_handle_order;
+DELETE FROM data_handle_order;
