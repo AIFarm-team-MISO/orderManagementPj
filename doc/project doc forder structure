@@ -76,9 +76,8 @@ orderManagementPj/
 │               └── script.js
 └── requirements.txt
 
-10/02 최종 업데이트
 
-# 프로젝트 파일 구조 
+# 프로젝트 파일 구조 (10/02)
 orderManagementPj/
 │
 ├── manage.py
@@ -121,3 +120,47 @@ orderManagementPj/
 │── config_server.ini            # 설정파일(서버용) : 크롬드라이버 위치, 사이트접속 url
 │── main.py                      # 메인실행파일 : 전체 모듈실행파일
 └── requirements.txt
+
+## 프로젝트 파일 구조 업데이트 (10/04)
+
+orderManagementPj/
+│
+├── manage.py                   # Django 프로젝트 관리 명령어 파일
+├── order_management/            # 메인 애플리케이션 폴더
+│   ├── __init__.py              # 패키지 초기화 파일
+│   ├── crawling/                # 데이터 크롤링을 위한 모듈
+│   │   └── __init__.py
+│   │   └── selenium_driver.py   # Selenium 크롬 드라이버 설정
+│   │   ├── smartstore/          # 스마트스토어 관련 모듈
+│   │       └── __init__.py
+│   │       └── login.py         # 로그인 관련 기능
+│   │       └── shipmentpage_handle.py # 배송 페이지 처리
+│   │       └── page_navigation.py    # 페이지 이동 처리
+│   ├── data_handle/             # 데이터 관리(엑셀, DB) 관련 모듈
+│   │   └── __init__.py
+│   │   ├── migrations/          # Django 마이그레이션 폴더
+│   │       └── __init__.py
+│   │       └── 0001_initial.py  # 첫 마이그레이션 파일
+│   │   └── orderlist_handle.py  # 엑셀 파일을 처리하고 DB 저장
+│   │   └── models.py            # 데이터베이스 모델 정의
+│   ├── web/                     # 웹 관련 모듈 (템플릿 및 정적 파일 포함)
+│   │   └── __init__.py
+│   │   └── views.py             # 웹 페이지의 비즈니스 로직 처리
+│   │   └── urls.py              # URL 라우팅
+│   │   ├── templates/           # HTML 템플릿 파일
+│   │       └── web_handle/
+│   │           └── order_list.html  # 주문 리스트 웹 페이지 템플릿
+│   │   ├── static/              # 정적 파일(CSS, JS) 폴더
+│   │       └── css/
+│   │           └── style.css    # CSS 파일
+│   │       └── js/
+│   │           └── script.js    # 자바스크립트 파일
+├── test/                        # 테스트 코드 폴더
+│   └── __init__.py
+│   └── test_login.py            # 로그인 테스트
+│   └── test_data_handle.py      # 데이터 처리 테스트
+├── doc/                         # 프로젝트 문서 폴더
+│── config.ini                   # 환경 설정 파일 (로컬)
+│── config_server.ini            # 환경 설정 파일 (서버)
+│── main.py                      # 메인 실행 파일
+└── requirements.txt             # 프로젝트 의존성 패키지 목록
